@@ -14,7 +14,11 @@ if(KernelPlatformPolarfire)
     config_set(KernelOpenSBIPlatform OPENSBI_PLATFORM "generic")
     config_set(KernelPlatformFirstHartID FIRST_HART_ID 1)
     list(APPEND KernelDTSList "tools/dts/mpfs_icicle.dts")
-    list(APPEND KernelDTSList "src/plat/polarfire/overlay-polarfire.dts")
+    if(PolarfireAmp)
+        list(APPEND KernelDTSList "src/plat/polarfire/overlay-polarfire-amp.dts")
+    else()
+        list(APPEND KernelDTSList "src/plat/polarfire/overlay-polarfire.dts")
+    endif()
     declare_default_headers(
         TIMER_FREQUENCY 10000000 PLIC_MAX_NUM_INT 186
         INTERRUPT_CONTROLLER drivers/irq/riscv_plic0.h
