@@ -463,12 +463,26 @@
 		};
 	};
 
+	mbox: mailbox@37020800 {
+		compatible = "microchip,mpfs-mailbox";
+		reg = <0x0 0x37020000 0x0 0x2000>;
+		interrupt-parent = <&L1>;
+		interrupts = <96>;
+		#mbox-cells = <1>;
+		};
+
+	sysregscb: sysregscb@20003000 {
+		compatible = "microchip,mpfs-mailbox";
+		reg = <0x0 0x20003000 0x0 0x1000>;
+		};
+
+
 	timer0: timer@20125000 {
 		compatible = "timer";
-                reg = <0x0 20125000 0x0 0x400>;
-                interrupt-parent = <&L1>;
-                interrupts = <82 83>;
-                timer-width = < 0x20 >;
+				reg = <0x0 20125000 0x0 0x400>;
+				interrupt-parent = <&L1>;
+				interrupts = <82 83>;
+				timer-width = < 0x20 >;
 	};
 
 };
