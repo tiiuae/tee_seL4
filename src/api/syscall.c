@@ -306,6 +306,18 @@ exception_t handleUnknownSyscall(word_t w)
     }
 #endif /* CONFIG_ENABLE_BENCHMARKS */
 
+#ifdef CONFIG_HSS_IHC_SYSCALL
+    if (w == SysHssIhcCall) {
+        word_t cmd = getRegister(NODE_STATE(ksCurThread), capRegister);
+        word_t channel = getRegister(NODE_STATE(ksCurThread), msgInfoRegister);
+        word_t buff_paddr = getRegister(NODE_STATE(ksCurThread), a2);
+
+        sbi_ihc_call(cmd, channel, buff_paddr);
+
+        return EXCEPTION_NONE;
+    }
+#endif /* CONFIG_HSS_IHC_SYSCALL */
+
     MCS_DO_IF_BUDGET({
 #ifdef CONFIG_SET_TLS_BASE_SELF
         if (w == SysSetTLSBase)

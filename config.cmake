@@ -518,4 +518,11 @@ config_option(
     DEFAULT OFF
 )
 
+config_option(
+    KernelHssIhcSyscall HSS_IHC_SYSCALL
+    "Syscall for HSS IHC"
+    DEFAULT OFF
+    DEPENDS "PolarfireAmp"
+)
+
 add_config_library(kernel "${configure_string}")

@@ -987,3 +987,15 @@ LIBSEL4_INLINE_FUNC void seL4_SetTLSBase(seL4_Word tls_base)
     asm volatile("" ::: "memory");
 }
 #endif /* CONFIG_SET_TLS_BASE_SELF */
+
+#ifdef CONFIG_HSS_IHC_SYSCALL
+LIBSEL4_INLINE_FUNC void seL4_HssIhcCall(seL4_Word cmd, seL4_Word channel, seL4_Word buff_paddr)
+{
+    register seL4_Word arg1 asm("a0") = cmd;
+    register seL4_Word arg2 asm("a1") = channel;
+    register seL4_Word arg3 asm("a2") = buff_paddr;
+    register seL4_Word scno asm("a7") = seL4_SysHssIhcCall;
+
+    asm volatile("ecall" :: "r"(arg1), "r"(arg2), "r"(arg3), "r"(scno) : "memory");
+}
+#endif /* CONFIG_HSS_IHC_SYSCALL */

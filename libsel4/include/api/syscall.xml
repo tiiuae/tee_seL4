@@ -82,5 +82,8 @@
         <config condition="defined CONFIG_SET_TLS_BASE_SELF">
             <syscall name="SetTLSBase"/>
         </config>
+        <config condition="defined CONFIG_HSS_IHC_SYSCALL">
+            <syscall name="HssIhcCall"/>
+        </config>
     </debug>
 </syscalls>
