@@ -39,14 +39,30 @@
 		reg = <0x0 0x80200000 0x0 0x8E00000>;
 	};
 
-	/* rpmsg-lite supports only 32bit address range. RL_WORD_ALIGN_-macros
+	/* RPMSG vring reservation from linux devicetree
+	 *
+	 * Combines memory areas reserved for rpmsg and rpmsg_dma_reserved
+	 *
+	 *     rpmsg: rpmsg {
+	 *         compatible = "microchip,miv-rpmsg";
+	 *         reg =  <0x0 0xa2400000 0x0 0x10000>;
+	 *         memory-region = <&rpmsg_dma_reserved>;
+	 *         mboxes= <&ihc 0>;
+	 *     };
+	 *
+	 *     rpmsg_dma_reserved: rpmsg_dma@0xa2410000 {
+	 *         compatible = "shared-dma-pool";
+	 *         reg = <0x0 0xa2410000 0x0 0x40000>;
+	 *         label = "rpmsg-ddr";
+	 *     };
+	 *
+	 * NOTE!! rpmsg-lite supports only 32bit address range. RL_WORD_ALIGN_-macros
 	 * shrink address to uint32_t
 	 *
 	 * I.e. area MUST be located in lower DDR range.
 	 */
 	rpmsg@a2400000 {
-		compatible = "microchip,miv-rpmsg";
-		reg =  <0x0 0xa2400000 0x0 0x10000>; // 64Kb reserved for vrings
+		reg =  <0x0 0xa2400000 0x0 0x50000>; // rpmsg + rpmsg_dma_reserved
 	};
 
 	teeos_comm {
