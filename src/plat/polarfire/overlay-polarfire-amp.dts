@@ -64,4 +64,13 @@
 	rpmsg@a2400000 {
 		reg =  <0x0 0xa2400000 0x0 0x50000>; // rpmsg + rpmsg_dma_reserved
 	};
+
+	/*
+	 * Reserved memory area for seL4 crashlog.
+	 *
+	 * CIRC-header + power of 2 buffer
+	 */
+	sel4_crashlog@a2450000 {
+		reg = <0x0 0xa2450000 0x0 0x2000>;
+	};
 };
